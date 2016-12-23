@@ -18,5 +18,6 @@ var djb2Hash = function djb2Hash(str) {
 //    ... display module ...
 // }
 var groupUser = exports.groupUser = function groupUser(id, groupName) {
-  return Math.abs(id * djb2Hash(groupName) >> 3) % 2;
+  var n = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
+  return Math.abs(id * djb2Hash(groupName) >> 3) % n;
 };

@@ -12,5 +12,5 @@ const djb2Hash = str => {
 //  if (groupUser(user.id, 'Popular Skill Engagement Module') === 1) {
 //    ... display module ...
 // }
-export const groupUser = (id, groupName) =>
-  Math.abs(((id * djb2Hash(groupName)) >> 3)) % 2
+export const groupUser = (id, groupName, n = 2) =>
+  Math.abs(((id * djb2Hash(groupName)) >> 3)) % n
