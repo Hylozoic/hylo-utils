@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.incrementLabel = exports.markdown = undefined;
+exports.increment = exports.markdown = undefined;
 exports.sanitize = sanitize;
 
 var _marked = require('marked');
@@ -37,9 +37,9 @@ var markdown = exports.markdown = function markdown(text) {
 
 // increment the number at the end of a string.
 // foo => foo2, foo2 => foo3, etc.
-var incrementLabel = exports.incrementLabel = function incrementLabel(label) {
+var increment = exports.increment = function increment(text) {
   var regex = /\d*$/;
-  var word = label.replace(regex, '');
-  var number = Number(label.match(regex)[0] || 1) + 1;
+  var word = text.replace(regex, '');
+  var number = Number(text.match(regex)[0] || 1) + 1;
   return '' + word + number;
 };

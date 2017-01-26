@@ -13,4 +13,4 @@ const djb2Hash = str => {
 //    ... display module ...
 // }
 export const groupUser = (id, groupName, n = 2) =>
-  Math.abs(((id * djb2Hash(groupName)) >> 3)) % n
+  Math.abs(((Number(id) * djb2Hash(groupName)) >> 3)) % n
