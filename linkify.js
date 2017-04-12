@@ -13,8 +13,6 @@ var _string = require('linkifyjs/string');
 
 var _string2 = _interopRequireDefault(_string);
 
-var _index = require('util/index');
-
 var _lodash = require('lodash');
 
 var _cheerio = require('cheerio');
@@ -27,6 +25,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var maxLinkLength = 48;
 
+function tagUrl(tagName, slug) {
+  if (slug) {
+    return '/c/' + slug + '/tag/' + tagName;
+  } else {
+    return '/tag/' + tagName;
+  }
+}
+
 function linkifyjsOptions(slug) {
   return {
     format: function format(value, type) {
@@ -35,7 +41,7 @@ function linkifyjsOptions(slug) {
 
     formatHref: function formatHref(value, type) {
       if (type === 'hashtag') {
-        return (0, _index.tagUrl)(value.substring(1), slug);
+        return tagUrl(value.substring(1), slug);
       }
       return value;
     },
@@ -69,10 +75,10 @@ function linkify(text, slug) {
 
 function recurse($, el, fn) {
   var attrs = !(0, _lodash.isEmpty)(el.attribs) ? ' ' + (0, _lodash.toPairs)(el.attribs).map(function (_ref) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        k = _ref2[0],
-        v = _ref2[1];
+    var _ref2 = _slicedToArray(_ref, 2);
 
+    var k = _ref2[0];
+    var v = _ref2[1];
     return k + '=\'' + v + '\'';
   }).join(' ') : '';
 
@@ -84,7 +90,7 @@ function cleanupLink($, el, slug) {
   var text = $el.text();
   var match = text.match(_hashtag.hashtagFullRegex);
   if (match) {
-    $el.attr('href', (0, _index.tagUrl)(match[1], slug));
+    $el.attr('href', tagUrl(match[1], slug));
     $el.attr('data-search', match[0]);
     $el.attr('class', 'hashtag');
   }

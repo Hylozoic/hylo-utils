@@ -1,10 +1,17 @@
 import linkifyString from 'linkifyjs/string'
-import { tagUrl } from 'util/index'
 import { isEmpty, toPairs, merge } from 'lodash'
 import cheerio from 'cheerio'
 import { hashtagFullRegex } from './hashtag'
 
 const maxLinkLength = 48
+
+function tagUrl (tagName, slug) {
+  if (slug) {
+    return `/c/${slug}/tag/${tagName}`
+  } else {
+    return `/tag/${tagName}`
+  }
+}
 
 function linkifyjsOptions (slug) {
   return {
