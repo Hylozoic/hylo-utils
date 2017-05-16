@@ -1,1 +1,5 @@
 Put all source files in `src/`. Do not edit JS files in the root folder. After making your changes to files in `src/`, run `npm run build` to transpile to ES5, and check in everything.
+
+--
+
+1.0.4 - LEJ: Whitelisted more attributes for text#sanitize to accomodate saving of mentions and topics from HyloEditor

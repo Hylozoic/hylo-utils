@@ -13,7 +13,7 @@ export function sanitize (text) {
   return insane(strippedText, {
     allowedTags: ['a', 'p', 'br', 'ul', 'ol', 'li', 'strong', 'em'],
     allowedAttributes: {
-      'a': ['href', 'data-user-id']
+      'a': ['href', 'data-user-id', 'data-entity-type']
     }
   })
 }

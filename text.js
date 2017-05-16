@@ -41,7 +41,7 @@ function sanitize(text) {
   return (0, _insane2.default)(strippedText, {
     allowedTags: ['a', 'p', 'br', 'ul', 'ol', 'li', 'strong', 'em'],
     allowedAttributes: {
-      'a': ['href', 'data-user-id']
+      'a': ['href', 'data-user-id', 'data-entity-type']
     }
   });
 }
@@ -69,7 +69,7 @@ var truncate = exports.truncate = function truncate(text, length) {
 };
 
 function present(text) {
-  var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   if (!text) return '';
 
