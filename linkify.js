@@ -33,6 +33,14 @@ function tagUrl(tagName, slug) {
   }
 }
 
+function mentionUrl(memberId, slug) {
+  if (slug) {
+    return '/c/' + slug + '/m/' + memberId;
+  } else {
+    return '/m/' + memberId;
+  }
+}
+
 function linkifyjsOptions(slug) {
   return {
     format: function format(value, type) {
@@ -88,13 +96,18 @@ function recurse($, el, fn) {
 function cleanupLink($, el, slug) {
   var $el = $(el);
   var text = $el.text();
-  var match = text.match(_hashtag.hashtagFullRegex);
-  if (match) {
-    $el.attr('href', tagUrl(match[1], slug));
-    $el.attr('data-search', match[0]);
-    $el.attr('class', 'hashtag');
+  if ($el.data('entity-type') === 'mention') {
+    var memberId = $el.data('user-id');
+    $el.attr('href', mentionUrl(memberId, slug));
+    $el.attr('class', 'mention');
+  } else {
+    var match = text.match(_hashtag.hashtagFullRegex);
+    if (match) {
+      $el.attr('href', tagUrl(match[1], slug));
+      $el.attr('data-search', match[0]);
+      $el.attr('class', 'hashtag');
+    }
   }
-
   if (text.length >= maxLinkLength) {
     $el.text(text.slice(0, maxLinkLength) + '…');
   }

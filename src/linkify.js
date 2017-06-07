@@ -13,6 +13,14 @@ function tagUrl (tagName, slug) {
   }
 }
 
+function mentionUrl (memberId, slug) {
+  if (slug) {
+    return `/c/${slug}/m/${memberId}`
+  } else {
+    return `/m/${memberId}`
+  }
+}
+
 function linkifyjsOptions (slug) {
   return {
     format: (value, type) =>
@@ -61,13 +69,18 @@ function recurse ($, el, fn) {
 function cleanupLink ($, el, slug) {
   const $el = $(el)
   const text = $el.text()
-  const match = text.match(hashtagFullRegex)
-  if (match) {
-    $el.attr('href', tagUrl(match[1], slug))
-    $el.attr('data-search', match[0])
-    $el.attr('class', 'hashtag')
+  if ($el.data('entity-type') === 'mention') {
+    const memberId = $el.data('user-id')
+    $el.attr('href', mentionUrl(memberId, slug))
+    $el.attr('class', 'mention')
+  } else {
+    const match = text.match(hashtagFullRegex)
+    if (match) {
+      $el.attr('href', tagUrl(match[1], slug))
+      $el.attr('data-search', match[0])
+      $el.attr('class', 'hashtag')
+    }
   }
-
   if (text.length >= maxLinkLength) {
     $el.text(text.slice(0, maxLinkLength) + '…')
   }
