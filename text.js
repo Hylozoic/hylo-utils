@@ -9,6 +9,7 @@ exports.present = present;
 exports.appendInP = appendInP;
 exports.textLength = textLength;
 exports.humanDate = humanDate;
+exports.threadNames = threadNames;
 
 var _marked = require('marked');
 
@@ -69,7 +70,7 @@ var truncate = exports.truncate = function truncate(text, length) {
 };
 
 function present(text) {
-  var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+  var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   if (!text) return '';
 
@@ -115,4 +116,18 @@ function humanDate(date, short) {
   }
   ret = ret.replace(/ minutes?/, 'm').replace(/ hours?/, 'h').replace(/ days?/, 'd').replace(/ weeks?/, 'w').replace(/ month(s?)/, ' mo$1');
   return ret;
+}
+
+function threadNames(names) {
+  var nameString = '';
+  switch (names.length) {
+    case 1:
+    case 2:
+      nameString = names.join(', ');
+      break;
+    default:
+      nameString = names.slice(0, 1).join(', ') + ' and ' + (names.length - 1) + ' other' + (names.length > 2 ? 's' : '');
+      break;
+  }
+  return nameString;
 }

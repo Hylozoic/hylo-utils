@@ -91,3 +91,17 @@ export function humanDate (date, short) {
   .replace(/ month(s?)/, ' mo$1')
   return ret
 }
+
+export function threadNames (names) {
+  let nameString = ''
+  switch (names.length) {
+    case 1:
+    case 2:
+      nameString = names.join(', ')
+      break
+    default:
+      nameString = `${names.slice(0, 1).join(', ')} and ${names.length - 1} other${names.length > 2 ? 's' : ''}`
+      break
+  }
+  return nameString
+}
