@@ -83,10 +83,10 @@ function linkify(text, slug) {
 
 function recurse($, el, fn) {
   var attrs = !(0, _lodash.isEmpty)(el.attribs) ? ' ' + (0, _lodash.toPairs)(el.attribs).map(function (_ref) {
-    var _ref2 = _slicedToArray(_ref, 2);
+    var _ref2 = _slicedToArray(_ref, 2),
+        k = _ref2[0],
+        v = _ref2[1];
 
-    var k = _ref2[0];
-    var v = _ref2[1];
     return k + '=\'' + v + '\'';
   }).join(' ') : '';
 
