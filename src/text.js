@@ -95,5 +95,5 @@ export function humanDate (date, short) {
 // Assumes current user has already been filtered from `names`
 export function threadNames (names) {
   if (names.length < 3) return names.join(' & ')
-  return `${names[0]} & ${names.length - 1} other${names.length > 2 ? 's' : ''}`
+  return `${names[0]} & ${names.length - 1} others`
 }
