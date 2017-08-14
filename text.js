@@ -118,16 +118,8 @@ function humanDate(date, short) {
   return ret;
 }
 
+// Assumes current user has already been filtered from `names`
 function threadNames(names) {
-  var nameString = '';
-  switch (names.length) {
-    case 1:
-    case 2:
-      nameString = names.join(', ');
-      break;
-    default:
-      nameString = names.slice(0, 1).join(', ') + ' and ' + (names.length - 1) + ' other' + (names.length > 2 ? 's' : '');
-      break;
-  }
-  return nameString;
+  if (names.length < 3) return names.join(' & ');
+  return names[0] + ' & ' + (names.length - 1) + ' others}';
 }

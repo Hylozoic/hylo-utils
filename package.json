@@ -1,6 +1,6 @@
 {
   "name": "hylo-utils",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Utility code shared by hylo-node and hylo-redux.",
   "repository": {
     "type": "git",
@@ -9,13 +9,15 @@
   "license": "AGPL-1.0",
   "main": "dist/index.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel src --out-dir ."
+    "build": "./node_modules/.bin/babel src --out-dir .",
+    "test": "jest"
   },
   "dependencies": {
     "buffer": "^5.0.6",
     "cheerio": "^0.22.0",
     "events": "^1.1.1",
     "insane": "^2.6.1",
+    "jest": "^20.0.4",
     "linkifyjs": "^2.1.4",
     "marked": "^0.3.5",
     "pretty-date": "^0.2.0",
