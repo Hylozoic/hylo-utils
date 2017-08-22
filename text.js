@@ -121,5 +121,5 @@ function humanDate(date, short) {
 // Assumes current user has already been filtered from `names`
 function threadNames(names) {
   if (names.length < 3) return names.join(' & ');
-  return names[0] + ' & ' + (names.length - 1) + ' others}';
+  return names[0] + ' & ' + (names.length - 1) + ' others';
 }

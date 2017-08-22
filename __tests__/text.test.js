@@ -1,4 +1,4 @@
-import * as text from '../src/text.js'
+import * as text from '../src/text'
 
 describe('threadNames', () => {
   it('handles single name correctly', () => {
