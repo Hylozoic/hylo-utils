@@ -3,6 +3,9 @@ import { isEmpty, toPairs, merge } from 'lodash'
 import cheerio from 'cheerio'
 import { hashtagFullRegex } from './hashtag'
 
+// this loads the hashtag-parsing plugin
+require('linkifyjs/plugins/hashtag')(require('linkifyjs'))
+
 const maxLinkLength = 48
 
 function tagUrl (tagName, slug) {
