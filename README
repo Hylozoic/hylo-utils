@@ -1,7 +1,16 @@
-Put all source files in `src/`. Do not edit JS files in the root folder. After making your changes to files in `src/`, run `npm run build` to transpile to ES5, and check in everything.
+Put all source files in `src/`. Do not edit JS files in the root folder. After
+making your changes to files in `src/`, run `npm run build` to transpile to ES5,
+and check in everything.
 
 --
 
-1.0.4 - LEJ: Whitelisted more attributes for text#sanitize to accomodate saving of mentions and topics from HyloEditor
-1.0.5 - LEJ: Updated linkify > cleanupLink function to expand mention links with URL as is currently done with topics (hashtags)
-1.0.6 - Added threadNames which accepts an array of names and displays them in a screen size friendly way
+1.0.4 - LEJ: Whitelisted more attributes for text#sanitize to accomodate saving
+of mentions and topics from HyloEditor
+
+1.0.5 - LEJ: Updated linkify > cleanupLink function to expand mention links with
+URL as is currently done with topics (hashtags)
+
+1.0.6 - Added threadNames which accepts an array of names and displays them in a
+screen size friendly way
+
+1.0.9 - LW: Fix linkify's handling of hashtags 

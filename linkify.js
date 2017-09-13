@@ -23,6 +23,9 @@ var _hashtag = require('./hashtag');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// this loads the hashtag-parsing plugin
+require('linkifyjs/plugins/hashtag')(require('linkifyjs'));
+
 var maxLinkLength = 48;
 
 function tagUrl(tagName, slug) {
