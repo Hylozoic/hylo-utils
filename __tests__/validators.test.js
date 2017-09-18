@@ -1,4 +1,4 @@
-import { validateUser } from '../src/validators'
+import { validateFlaggedItem, validateUser } from '../src/validators'
 
 describe('validateUser', () => {
   describe('password', () => {
@@ -18,6 +18,29 @@ describe('validateUser', () => {
   describe('name', () => {
     it('catches combination of tab and space characters', () => {
       expect(validateUser.name(' 	    	     ')).not.toBe(null)
+    })
+  })
+})
+
+describe('validateFlaggedItem', () => {
+  describe('reason', () => {
+    it('catches combination of tab and space characters', () => {
+      expect(validateFlaggedItem.reason(' 	    	     ')).not.toBe(null)
+    })
+
+    it('rejects very long strings', () => {
+      const longString = new Array(10000).join('a')
+      expect(validateFlaggedItem.reason(longString)).not.toBe(null)
+    })
+  })
+
+  describe('link', () => {
+    it('accepts Hylo subdomains', () => {
+      expect(validateFlaggedItem.link('https://legacy.hylo.com/foo/bar')).toBe(null)
+    })
+
+    it('rejects other domains', () => {
+      expect(validateFlaggedItem.link('https://flargleargle.org/borf/spoon')).not.toBe(null)
     })
   })
 })
