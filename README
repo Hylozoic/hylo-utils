@@ -14,3 +14,5 @@ URL as is currently done with topics (hashtags)
 screen size friendly way
 
 1.0.9 - LW: Fix linkify's handling of hashtags 
+
+1.1.0 - Add simple validation scheme for model properties

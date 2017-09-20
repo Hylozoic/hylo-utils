@@ -12,6 +12,7 @@ const notHyloUrl = link => !isURL(link, { host_whitelist: [ /.*hylo\.com/ ] }) ?
 // Validators return a string describing the error if invalid, or null if valid.
 export const validateUser = {
   password (password) {
+    if (typeof password !== 'string') return 'Password must be a string'
     const validators = [ onlyWhitespace, lengthLessThan(9) ]
     const invalidReasons = compact(validators.map(validator => validator(password)))
     return invalidReasons.length ? `Password ${invalidReasons.join(', ')}.` : null
@@ -19,6 +20,7 @@ export const validateUser = {
 
   // Note: the user's full name, _not_ a login field (we use email for that)
   name (name) {
+    if (typeof name !== 'string') return 'Name must be a string.'
     const validators = [ onlyWhitespace ]
     const invalidReasons = compact(validators.map(validator => validator(name)))
     return invalidReasons.length ? `Name ${invalidReasons.join(', ')}.` : null
@@ -27,12 +29,14 @@ export const validateUser = {
 
 export const validateFlaggedItem = {
   reason (reason) {
+    if (typeof reason !== 'string') return 'Reason must be a string.'
     const validators = [ onlyWhitespace, lengthGreaterThan(5000) ]
     const invalidReasons = compact(validators.map(validator => validator(reason)))
     return invalidReasons.length ? `Reason ${invalidReasons.join(', ')}.` : null
   },
 
   link (link) {
+    if (typeof link !== 'string') return 'Link must be a string.'
     const validators = [ notHyloUrl ]
     const invalidReasons = compact(validators.map(validator => validator(link)))
     return invalidReasons.length ? `Link ${invalidReasons.join(', ')}.` : null
