@@ -16,3 +16,5 @@ screen size friendly way
 1.0.9 - LW: Fix linkify's handling of hashtags 
 
 1.1.0 - Add simple validation scheme for model properties
+
+1.1.1 - Add `div` to tag whitelist for sanitize (required in comments).

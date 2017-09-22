@@ -11,7 +11,7 @@ export function sanitize (text) {
   var strippedText = text.replace(/<p>&nbsp;/gi, '<p>')
 
   return insane(strippedText, {
-    allowedTags: ['a', 'p', 'br', 'ul', 'ol', 'li', 'strong', 'em'],
+    allowedTags: ['a', 'br', 'div', 'em', 'li', 'ol', 'p', 'strong', 'ul' ],
     allowedAttributes: {
       'a': ['href', 'data-user-id', 'data-entity-type']
     }
