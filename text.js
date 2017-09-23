@@ -4,12 +4,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.truncate = exports.increment = exports.markdown = undefined;
+exports.divToP = divToP;
 exports.sanitize = sanitize;
 exports.present = present;
 exports.appendInP = appendInP;
 exports.textLength = textLength;
 exports.humanDate = humanDate;
 exports.threadNames = threadNames;
+
+var _cheerio = require('cheerio');
+
+var _cheerio2 = _interopRequireDefault(_cheerio);
 
 var _marked = require('marked');
 
@@ -33,15 +38,26 @@ var _prettyDate2 = _interopRequireDefault(_prettyDate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function sanitize(text) {
+// Replace any div tag with p. Note that this drops all attributes from the tag.
+function divToP(text) {
+  if (!text || typeof text !== 'string') return '';
+  var $ = _cheerio2.default.load(text);
+  $('div').replaceWith(function () {
+    return $('<p>' + $(this).html() + '</p>');
+  });
+  return $.html();
+}
+
+function sanitize(text, whitelist, attrWhitelist) {
   if (!text) return '';
+  if (whitelist && !Array.isArray(whitelist)) return '';
 
   // remove leading &nbsp; (a side-effect of contenteditable)
   var strippedText = text.replace(/<p>&nbsp;/gi, '<p>');
 
   return (0, _insane2.default)(strippedText, {
-    allowedTags: ['a', 'br', 'div', 'em', 'li', 'ol', 'p', 'strong', 'ul'],
-    allowedAttributes: {
+    allowedTags: whitelist || ['a', 'br', 'em', 'li', 'ol', 'p', 'strong', 'ul'],
+    allowedAttributes: attrWhitelist || {
       'a': ['href', 'data-user-id', 'data-entity-type']
     }
   });

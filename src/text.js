@@ -1,18 +1,30 @@
+import cheerio from 'cheerio'
 import marked from 'marked'
 import insane from 'insane'
 import truncHtml from 'trunc-html'
 import linkify from './linkify'
 import prettyDate from 'pretty-date'
 
-export function sanitize (text) {
+// Replace any div tag with p. Note that this drops all attributes from the tag.
+export function divToP (text) {
+  if (!text || typeof text !== 'string') return ''
+  const $ = cheerio.load(text)
+  $('div').replaceWith(function () {
+    return $('<p>' + $(this).html() + '</p>')
+  })
+  return $.html()
+}
+
+export function sanitize (text, whitelist, attrWhitelist) {
   if (!text) return ''
+  if (whitelist && !Array.isArray(whitelist)) return ''
 
   // remove leading &nbsp; (a side-effect of contenteditable)
-  var strippedText = text.replace(/<p>&nbsp;/gi, '<p>')
+  const strippedText = text.replace(/<p>&nbsp;/gi, '<p>')
 
   return insane(strippedText, {
-    allowedTags: ['a', 'br', 'div', 'em', 'li', 'ol', 'p', 'strong', 'ul' ],
-    allowedAttributes: {
+    allowedTags: whitelist || ['a', 'br', 'em', 'li', 'ol', 'p', 'strong', 'ul' ],
+    allowedAttributes: attrWhitelist || {
       'a': ['href', 'data-user-id', 'data-entity-type']
     }
   })

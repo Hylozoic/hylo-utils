@@ -9,3 +9,6 @@ engines:
 ratings:
   paths:
   - src/**
+exclude_paths:
+- __tests__/**
+- ./*.js
