@@ -20,3 +20,7 @@ screen size friendly way
 1.1.1 - Add `div` to tag whitelist for sanitize (required in comments).
 
 1.2 - dToP: adds Cheerio dependency, converts div tags from mobile client to p.
+
+1.2.1 - ?
+
+1.2.2 - LEJ: text > present to accept noLinks option to not convert links and hashtags into anchors
