@@ -1,6 +1,6 @@
 {
   "name": "hylo-utils",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Utility code shared by hylo-node and hylo-redux.",
   "repository": {
     "type": "git",
