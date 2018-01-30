@@ -1,4 +1,4 @@
-import { validateFlaggedItem, validateUser } from '../src/validators'
+import { validateFlaggedItem, validateTopicName, validateUser } from '../src/validators'
 
 describe('validateUser', () => {
   describe('password', () => {
@@ -42,5 +42,16 @@ describe('validateFlaggedItem', () => {
     it('rejects other domains', () => {
       expect(validateFlaggedItem.link('https://flargleargle.org/borf/spoon')).not.toBe(null)
     })
+  })
+})
+
+describe('validateTopicName', () => {
+  it('rejects very long names', () => {
+    const longString = new Array(1000).join('a')
+    expect(validateTopicName(longString)).not.toBe(null)
+  })
+
+  it('rejects single character names', () => {
+    expect(validateTopicName('x')).not.toBe(null)
   })
 })

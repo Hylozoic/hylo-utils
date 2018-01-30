@@ -42,3 +42,10 @@ export const validateFlaggedItem = {
     return invalidReasons.length ? `Link ${invalidReasons.join(', ')}.` : null
   }
 }
+
+export const validateTopicName = name => {
+  if (typeof link !== 'string') return 'Topic name must be a string.'
+  const validators = [ lengthGreaterThan(50), lengthLessThan(2) ]
+  const invalidReasons = compact(validators.map(validator => validator(name)))
+  return invalidReasons.length ? `Topic name ${invalidReasons.join(', ')}.` : null
+}
