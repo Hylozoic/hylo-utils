@@ -3,33 +3,45 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.validateFlaggedItem = exports.validateUser = undefined;
+exports.validateTopicName = exports.validateFlaggedItem = exports.validateUser = exports.notHyloUrl = exports.lengthLessThan = exports.lengthGreaterThan = exports.onlyWhitespace = exports.hasWhitespace = exports.hasDisallowedCharacters = undefined;
 
 var _lodash = require('lodash');
 
 var _validator = require('validator');
 
-var onlyWhitespace = function onlyWhitespace(s) {
+// Validators return a string describing the error if invalid, or null if valid.
+var hasDisallowedCharacters = exports.hasDisallowedCharacters = function hasDisallowedCharacters(blacklist) {
+  if (!(blacklist instanceof RegExp)) throw new Error('Blacklist must be regular expression.');
+  return function (s) {
+    return blacklist.exec(s) ? 'must not contain any of ' + blacklist.toString().slice(1, -1) : null;
+  };
+};
+
+var hasWhitespace = exports.hasWhitespace = function hasWhitespace(s) {
+  return (/\s/.exec(s) ? 'must not contain whitespace' : null
+  );
+};
+
+var onlyWhitespace = exports.onlyWhitespace = function onlyWhitespace(s) {
   return s.trim() === '' ? 'must not consist solely of whitespace' : null;
 };
 
-var lengthGreaterThan = function lengthGreaterThan(length) {
+var lengthGreaterThan = exports.lengthGreaterThan = function lengthGreaterThan(length) {
   return function (s) {
     return s.length > length ? 'must be less than ' + length + ' characters' : null;
   };
 };
 
-var lengthLessThan = function lengthLessThan(length) {
+var lengthLessThan = exports.lengthLessThan = function lengthLessThan(length) {
   return function (s) {
     return s.length < length ? 'must be at least ' + length + ' characters' : null;
   };
 };
 
-var notHyloUrl = function notHyloUrl(link) {
+var notHyloUrl = exports.notHyloUrl = function notHyloUrl(link) {
   return !(0, _validator.isURL)(link, { host_whitelist: [/.*hylo\.com/] }) ? 'must be a valid Hylo URL' : null;
 };
 
-// Validators return a string describing the error if invalid, or null if valid.
 var validateUser = exports.validateUser = {
   password: function password(_password) {
     if (typeof _password !== 'string') return 'Password must be a string';
@@ -69,4 +81,13 @@ var validateFlaggedItem = exports.validateFlaggedItem = {
     }));
     return invalidReasons.length ? 'Link ' + invalidReasons.join(', ') + '.' : null;
   }
+};
+
+var validateTopicName = exports.validateTopicName = function validateTopicName(name) {
+  if (typeof name !== 'string') return 'Topic name must be a string.';
+  var validators = [hasDisallowedCharacters(/[#]/), hasWhitespace, lengthGreaterThan(50), lengthLessThan(2)];
+  var invalidReasons = (0, _lodash.compact)(validators.map(function (validator) {
+    return validator(name);
+  }));
+  return invalidReasons.length ? 'Topic name ' + invalidReasons.join(', ') + '.' : null;
 };
