@@ -1,15 +1,24 @@
 import { compact } from 'lodash'
 import { isURL } from 'validator'
 
-const onlyWhitespace = s => s.trim() === '' ? 'must not consist solely of whitespace' : null
-
-const lengthGreaterThan = length => s => s.length > length ? `must be less than ${length} characters` : null
-
-const lengthLessThan = length => s => s.length < length ? `must be at least ${length} characters` : null
-
-const notHyloUrl = link => !isURL(link, { host_whitelist: [ /.*hylo\.com/ ] }) ? 'must be a valid Hylo URL' : null
-
 // Validators return a string describing the error if invalid, or null if valid.
+export const hasDisallowedCharacters = blacklist => {
+  if (!(blacklist instanceof RegExp)) throw new Error('Blacklist must be regular expression.')
+  return s => blacklist.exec(s)
+    ? `must not contain any of ${blacklist.toString().slice(1, -1)}`
+    : null
+}
+
+export const hasWhitespace = s => /\s/.exec(s) ? 'must not contain whitespace' : null
+
+export const onlyWhitespace = s => s.trim() === '' ? 'must not consist solely of whitespace' : null
+
+export const lengthGreaterThan = length => s => s.length > length ? `must be less than ${length} characters` : null
+
+export const lengthLessThan = length => s => s.length < length ? `must be at least ${length} characters` : null
+
+export const notHyloUrl = link => !isURL(link, { host_whitelist: [ /.*hylo\.com/ ] }) ? 'must be a valid Hylo URL' : null
+
 export const validateUser = {
   password (password) {
     if (typeof password !== 'string') return 'Password must be a string'
@@ -44,8 +53,13 @@ export const validateFlaggedItem = {
 }
 
 export const validateTopicName = name => {
-  if (typeof link !== 'string') return 'Topic name must be a string.'
-  const validators = [ lengthGreaterThan(50), lengthLessThan(2) ]
+  if (typeof name !== 'string') return 'Topic name must be a string.'
+  const validators = [
+    hasDisallowedCharacters(/[#]/),
+    hasWhitespace,
+    lengthGreaterThan(50),
+    lengthLessThan(2)
+  ]
   const invalidReasons = compact(validators.map(validator => validator(name)))
   return invalidReasons.length ? `Topic name ${invalidReasons.join(', ')}.` : null
 }
