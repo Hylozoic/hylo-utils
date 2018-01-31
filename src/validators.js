@@ -13,7 +13,7 @@ export const hasWhitespace = s => /\s/.exec(s) ? 'must not contain whitespace' :
 
 export const onlyWhitespace = s => s.trim() === '' ? 'must not consist solely of whitespace' : null
 
-export const lengthGreaterThan = length => s => s.length > length ? `must be less than ${length} characters` : null
+export const lengthGreaterThan = length => s => s.length > length ? `must be no more than ${length} characters` : null
 
 export const lengthLessThan = length => s => s.length < length ? `must be at least ${length} characters` : null
 

@@ -28,7 +28,7 @@ var onlyWhitespace = exports.onlyWhitespace = function onlyWhitespace(s) {
 
 var lengthGreaterThan = exports.lengthGreaterThan = function lengthGreaterThan(length) {
   return function (s) {
-    return s.length > length ? 'must be less than ' + length + ' characters' : null;
+    return s.length > length ? 'must be no more than ' + length + ' characters' : null;
   };
 };
 
