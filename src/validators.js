@@ -57,7 +57,7 @@ export const validateTopicName = name => {
   const validators = [
     hasDisallowedCharacters(/[#]/),
     hasWhitespace,
-    lengthGreaterThan(50),
+    lengthGreaterThan(40),
     lengthLessThan(2)
   ]
   const invalidReasons = compact(validators.map(validator => validator(name)))

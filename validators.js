@@ -85,7 +85,7 @@ var validateFlaggedItem = exports.validateFlaggedItem = {
 
 var validateTopicName = exports.validateTopicName = function validateTopicName(name) {
   if (typeof name !== 'string') return 'Topic name must be a string.';
-  var validators = [hasDisallowedCharacters(/[#]/), hasWhitespace, lengthGreaterThan(50), lengthLessThan(2)];
+  var validators = [hasDisallowedCharacters(/[#]/), hasWhitespace, lengthGreaterThan(40), lengthLessThan(2)];
   var invalidReasons = (0, _lodash.compact)(validators.map(function (validator) {
     return validator(name);
   }));
