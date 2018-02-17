@@ -9,6 +9,8 @@ export const hasDisallowedCharacters = blacklist => {
     : null
 }
 
+export const isRelativePath = s => /^\.\.?\/?/.exec(s) ? 'must not be a relative path' : null
+
 export const hasWhitespace = s => /\s/.exec(s) ? 'must not contain whitespace' : null
 
 export const onlyWhitespace = s => s.trim() === '' ? 'must not consist solely of whitespace' : null
@@ -55,7 +57,8 @@ export const validateFlaggedItem = {
 export const validateTopicName = name => {
   if (typeof name !== 'string') return 'Topic name must be a string.'
   const validators = [
-    hasDisallowedCharacters(/[#]/),
+    hasDisallowedCharacters(/[#/]/),
+    isRelativePath,
     hasWhitespace,
     lengthGreaterThan(40),
     lengthLessThan(2)

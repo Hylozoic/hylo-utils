@@ -72,6 +72,24 @@ describe('notHyloUrl', () => {
   })
 })
 
+describe('isRelativePath', () => {
+  it('catches a current directory path', () => {
+    expect(v.isRelativePath('./floof')).not.toBe(null)
+  })
+
+  it('catches a previous directory path', () => {
+    expect(v.isRelativePath('../floof')).not.toBe(null)
+  })
+
+  it('catches two leading dots', () => {
+    expect(v.isRelativePath('..')).not.toBe(null)
+  })
+
+  it('allows non-consecutive dots', () => {
+    expect(v.isRelativePath('this.is.separated.by.dots')).toBe(null)
+  })
+})
+
 describe('validateUser', () => {
   describe('password', () => {
     it('catches combination of tab and space characters', () => {

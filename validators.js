@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.validateTopicName = exports.validateFlaggedItem = exports.validateUser = exports.notHyloUrl = exports.lengthLessThan = exports.lengthGreaterThan = exports.onlyWhitespace = exports.hasWhitespace = exports.hasDisallowedCharacters = undefined;
+exports.validateTopicName = exports.validateFlaggedItem = exports.validateUser = exports.notHyloUrl = exports.lengthLessThan = exports.lengthGreaterThan = exports.onlyWhitespace = exports.hasWhitespace = exports.isRelativePath = exports.hasDisallowedCharacters = undefined;
 
 var _lodash = require('lodash');
 
@@ -15,6 +15,11 @@ var hasDisallowedCharacters = exports.hasDisallowedCharacters = function hasDisa
   return function (s) {
     return blacklist.exec(s) ? 'must not contain any of ' + blacklist.toString().slice(1, -1) : null;
   };
+};
+
+var isRelativePath = exports.isRelativePath = function isRelativePath(s) {
+  return (/^\.\.?\/?/.exec(s) ? 'must not be a relative path' : null
+  );
 };
 
 var hasWhitespace = exports.hasWhitespace = function hasWhitespace(s) {
@@ -85,7 +90,7 @@ var validateFlaggedItem = exports.validateFlaggedItem = {
 
 var validateTopicName = exports.validateTopicName = function validateTopicName(name) {
   if (typeof name !== 'string') return 'Topic name must be a string.';
-  var validators = [hasDisallowedCharacters(/[#]/), hasWhitespace, lengthGreaterThan(40), lengthLessThan(2)];
+  var validators = [hasDisallowedCharacters(/[#/]/), isRelativePath, hasWhitespace, lengthGreaterThan(40), lengthLessThan(2)];
   var invalidReasons = (0, _lodash.compact)(validators.map(function (validator) {
     return validator(name);
   }));
