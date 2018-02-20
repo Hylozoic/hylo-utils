@@ -3,9 +3,8 @@ import { isURL } from 'validator'
 
 // Validators return a string describing the error if invalid, or null if valid.
 export const hasDisallowedCharacters = blacklist => {
-  if (!(blacklist instanceof RegExp)) throw new Error('Blacklist must be regular expression.')
-  return s => blacklist.exec(s)
-    ? `must not contain any of ${blacklist.toString().slice(1, -1)}`
+  return s => new RegExp(`[${blacklist}]`).exec(s)
+    ? `must not contain any of ${blacklist}`
     : null
 }
 
@@ -57,7 +56,7 @@ export const validateFlaggedItem = {
 export const validateTopicName = name => {
   if (typeof name !== 'string') return 'Topic name must be a string.'
   const validators = [
-    hasDisallowedCharacters(/[#/]/),
+    hasDisallowedCharacters('#/'),
     isRelativePath,
     hasWhitespace,
     lengthGreaterThan(40),

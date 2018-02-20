@@ -11,9 +11,8 @@ var _validator = require('validator');
 
 // Validators return a string describing the error if invalid, or null if valid.
 var hasDisallowedCharacters = exports.hasDisallowedCharacters = function hasDisallowedCharacters(blacklist) {
-  if (!(blacklist instanceof RegExp)) throw new Error('Blacklist must be regular expression.');
   return function (s) {
-    return blacklist.exec(s) ? 'must not contain any of ' + blacklist.toString().slice(1, -1) : null;
+    return new RegExp('[' + blacklist + ']').exec(s) ? 'must not contain any of ' + blacklist : null;
   };
 };
 
@@ -90,7 +89,7 @@ var validateFlaggedItem = exports.validateFlaggedItem = {
 
 var validateTopicName = exports.validateTopicName = function validateTopicName(name) {
   if (typeof name !== 'string') return 'Topic name must be a string.';
-  var validators = [hasDisallowedCharacters(/[#/]/), isRelativePath, hasWhitespace, lengthGreaterThan(40), lengthLessThan(2)];
+  var validators = [hasDisallowedCharacters('#/'), isRelativePath, hasWhitespace, lengthGreaterThan(40), lengthLessThan(2)];
   var invalidReasons = (0, _lodash.compact)(validators.map(function (validator) {
     return validator(name);
   }));

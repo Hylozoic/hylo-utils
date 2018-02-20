@@ -2,15 +2,11 @@ import * as v from '../src/validators'
 
 describe('hasDisallowedCharacters', () => {
   it('catches characters on the blacklist', () => {
-    expect(v.hasDisallowedCharacters(/[#%]/)('flargle%wargle')).not.toBe(null)
+    expect(v.hasDisallowedCharacters('#%')('flargle%wargle')).not.toBe(null)
   })
 
   it('allows strings with no blacklisted characters', () => {
-    expect(v.hasDisallowedCharacters(/[%$]/)('flarglewargle!')).toBe(null)
-  })
-
-  it('throws when blacklist is not a regular expression', () => {
-    expect(() => v.hasDisallowedCharacters('woof')('arf')).toThrow()
+    expect(v.hasDisallowedCharacters('%$')('flarglewargle!')).toBe(null)
   })
 })
 
