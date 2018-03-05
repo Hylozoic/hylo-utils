@@ -8,7 +8,8 @@ export const hasDisallowedCharacters = blacklist => {
     : null
 }
 
-export const isRelativePath = s => /^\.\.?\/?/.exec(s) ? 'must not be a relative path' : null
+// This is an anti-relative path rule, just trying to avoid the jargon
+export const isRelativePath = s => /^\.\.?\/?/.exec(s) ? 'must not start with periods' : null
 
 export const hasWhitespace = s => /\s/.exec(s) ? 'must not contain whitespace' : null
 

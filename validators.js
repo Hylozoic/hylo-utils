@@ -16,8 +16,9 @@ var hasDisallowedCharacters = exports.hasDisallowedCharacters = function hasDisa
   };
 };
 
+// This is an anti-relative path rule, just trying to avoid the jargon
 var isRelativePath = exports.isRelativePath = function isRelativePath(s) {
-  return (/^\.\.?\/?/.exec(s) ? 'must not be a relative path' : null
+  return (/^\.\.?\/?/.exec(s) ? 'must not start with periods' : null
   );
 };
 
