@@ -56,7 +56,7 @@ function sanitize(text, whitelist, attrWhitelist) {
   var strippedText = text.replace(/<p>&nbsp;/gi, '<p>');
 
   return (0, _insane2.default)(strippedText, {
-    allowedTags: whitelist || ['a', 'br', 'em', 'li', 'ol', 'p', 'strong', 'ul'],
+    allowedTags: whitelist || ['a', 'br', 'em', 'li', 'ol', 'p', 'strong', 'ul', 'i', 'b'],
     allowedAttributes: attrWhitelist || {
       'a': ['href', 'data-user-id', 'data-entity-type']
     }
