@@ -19,5 +19,7 @@ var AnalyticsEvents = exports.AnalyticsEvents = {
   POST_CREATED: 'Post Created',
   POST_UPDATED: 'Post Updated',
   TOPIC_CREATED: 'Topic Created',
-  VOTED_ON_POST: 'Voted on Post'
+  VOTED_ON_POST: 'Voted on Post',
+  BLOCK_USER: 'User Blocked',
+  UNBLOCK_USER: 'User Un-Blocked'
 };
