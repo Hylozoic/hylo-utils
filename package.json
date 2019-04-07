@@ -17,7 +17,7 @@
     "cheerio": "^0.22.0",
     "events": "^1.1.1",
     "insane": "^2.6.1",
-    "jest": "^20.0.4",
+    "jest": "^23.0.0",
     "linkifyjs": "Hylozoic/linkifyjs#allow-underscores",
     "marked": "^0.3.5",
     "pretty-date": "^0.2.0",
