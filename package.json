@@ -17,7 +17,7 @@
     "cheerio": "^0.22.0",
     "events": "^1.1.1",
     "insane": "^2.6.1",
-    "jest": "^21.2.1",
+    "jest": "^24.7.1",
     "linkifyjs": "Hylozoic/linkifyjs#allow-underscores",
     "marked": "^0.3.5",
     "pretty-date": "^0.2.0",
@@ -26,8 +26,10 @@
     "validator": "^8.2.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.11.4",
-    "babel-preset-es2015": "^6.9.0"
+    "@babel/core": "7.2.2",
+    "@babel/cli": "7.2.3",
+    "@babel/preset-env": "7.2.3",
+    "standard": "12.0.1"
   },
   "standard": {
     "parser": "babel-eslint",
