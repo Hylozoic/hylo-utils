@@ -1,17 +1,18 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
+exports.AnalyticsEvents = exports.TOPIC_ENTITY_TYPE = exports.MENTION_ENTITY_TYPE = void 0;
 // These are used when creating posts and comments with mentions and topic tags
 // in them. The reason TOPIC_ENTITY_TYPE is '#mention' as opposed to something
 // more human-understandable has something to do with the Draft.js plugin used
 // in hylo-evo. Ask Loren :)
-var MENTION_ENTITY_TYPE = exports.MENTION_ENTITY_TYPE = 'mention';
-var TOPIC_ENTITY_TYPE = exports.TOPIC_ENTITY_TYPE = '#mention';
-
-var AnalyticsEvents = exports.AnalyticsEvents = {
+var MENTION_ENTITY_TYPE = 'mention';
+exports.MENTION_ENTITY_TYPE = MENTION_ENTITY_TYPE;
+var TOPIC_ENTITY_TYPE = '#mention';
+exports.TOPIC_ENTITY_TYPE = TOPIC_ENTITY_TYPE;
+var AnalyticsEvents = {
   COMMENT_CREATED: 'Comment Created',
   COMMUNITY_CREATED: 'Community Created',
   COMMUNITY_INVITATION_ACCEPTED: 'Community Invitation Accepted',
@@ -23,3 +24,4 @@ var AnalyticsEvents = exports.AnalyticsEvents = {
   BLOCK_USER: 'User Blocked',
   UNBLOCK_USER: 'User Un-Blocked'
 };
+exports.AnalyticsEvents = AnalyticsEvents;

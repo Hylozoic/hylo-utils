@@ -3,7 +3,12 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var invalidCharacterRegex = exports.invalidCharacterRegex = /[^\w_-]/;
-var hashtagCharacterRegex = exports.hashtagCharacterRegex = /^[\w_-]$/;
-var hashtagWordRegex = exports.hashtagWordRegex = /^[A-Za-z][\w_-]+$/;
-var hashtagFullRegex = exports.hashtagFullRegex = /^#([A-Za-z][\w_-]+)$/;
+exports.hashtagFullRegex = exports.hashtagWordRegex = exports.hashtagCharacterRegex = exports.invalidCharacterRegex = void 0;
+var invalidCharacterRegex = /[^\w_-]/;
+exports.invalidCharacterRegex = invalidCharacterRegex;
+var hashtagCharacterRegex = /^[\w_-]$/;
+exports.hashtagCharacterRegex = hashtagCharacterRegex;
+var hashtagWordRegex = /^[A-Za-z][\w_-]+$/;
+exports.hashtagWordRegex = hashtagWordRegex;
+var hashtagFullRegex = /^#([A-Za-z][\w_-]+)$/;
+exports.hashtagFullRegex = hashtagFullRegex;

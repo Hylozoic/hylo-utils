@@ -17,7 +17,6 @@
     "cheerio": "^0.22.0",
     "events": "^1.1.1",
     "insane": "^2.6.1",
-    "jest": "^24.7.1",
     "linkifyjs": "Hylozoic/linkifyjs#allow-underscores",
     "marked": "^0.3.5",
     "pretty-date": "^0.2.0",
@@ -29,6 +28,9 @@
     "@babel/core": "7.2.2",
     "@babel/cli": "7.2.3",
     "@babel/preset-env": "7.2.3",
+    "babel-jest": "23.6.0",
+    "babel-core": "7.0.0-bridge.0",
+    "jest": "23.6.0",
     "standard": "12.0.1"
   },
   "standard": {
