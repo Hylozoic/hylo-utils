@@ -48,7 +48,6 @@ function linkifyjsOptions (slug) {
 // text nodes that aren't inside A tags.
 export default function linkify (text, slug) {
   var $ = cheerio.load(text)
-
   // caveat: this isn't intended to handle arbitrarily complex html
   var run = node =>
     node.contents().map((i, el) => {
@@ -58,7 +57,7 @@ export default function linkify (text, slug) {
       return recurse($, el, run)
     }).get().join('')
 
-  return run($.root())
+  return run($('body'))
 }
 
 function recurse ($, el, fn) {

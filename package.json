@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "buffer": "^5.0.6",
-    "cheerio": "^0.22.0",
+    "cheerio": "^1.0.0-rc.5",
     "events": "^1.1.1",
     "insane": "^2.6.1",
     "linkifyjs": "Hylozoic/linkifyjs#allow-underscores",

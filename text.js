@@ -35,7 +35,7 @@ function divToP(text) {
   $('div').replaceWith(function () {
     return $('<p>' + $(this).html() + '</p>');
   });
-  return $.html();
+  return $('body').html();
 }
 
 function sanitize(text, whitelist, attrWhitelist) {

@@ -84,7 +84,7 @@ function linkify(text, slug) {
     }).get().join('');
   };
 
-  return run($.root());
+  return run($('body'));
 }
 
 function recurse($, el, fn) {
