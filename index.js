@@ -9,8 +9,9 @@ var djb2Hash = function djb2Hash(str) {
   var hash = 5381;
 
   for (var i = 0; i < str.length; i++) {
-    var char = str.charCodeAt(i);
-    hash = (hash << 5) + hash + char;
+    var _char = str.charCodeAt(i);
+
+    hash = (hash << 5) + hash + _char;
   }
 
   return hash;

@@ -24,18 +24,20 @@ var _linkify = _interopRequireDefault(require("./linkify"));
 
 var _prettyDate = _interopRequireDefault(require("pretty-date"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // Replace any div tag with p. Note that this drops all attributes from the tag.
 function divToP(text) {
   if (!text || typeof text !== 'string') return '';
 
-  var $ = _cheerio.default.load(text);
+  var $ = _cheerio["default"].load(text, {
+    _useHtmlParser2: true
+  });
 
   $('div').replaceWith(function () {
     return $('<p>' + $(this).html() + '</p>');
   });
-  return $('body').html();
+  return $.html();
 }
 
 function sanitize(text, whitelist, attrWhitelist) {
@@ -43,7 +45,7 @@ function sanitize(text, whitelist, attrWhitelist) {
   if (whitelist && !Array.isArray(whitelist)) return ''; // remove leading &nbsp; (a side-effect of contenteditable)
 
   var strippedText = text.replace(/<p>&nbsp;/gi, '<p>');
-  return (0, _insane.default)(strippedText, {
+  return (0, _insane["default"])(strippedText, {
     allowedTags: whitelist || ['a', 'br', 'em', 'li', 'ol', 'p', 'strong', 'ul'],
     allowedAttributes: attrWhitelist || {
       'a': ['href', 'data-user-id', 'data-entity-type']
@@ -52,12 +54,12 @@ function sanitize(text, whitelist, attrWhitelist) {
 }
 
 var markdown = function markdown(text) {
-  _marked.default.setOptions({
+  _marked["default"].setOptions({
     gfm: true,
     breaks: true
   });
 
-  return (0, _marked.default)(text || '');
+  return (0, _marked["default"])(text || '');
 }; // increment the number at the end of a string.
 // foo => foo2, foo2 => foo3, etc.
 
@@ -74,7 +76,7 @@ var increment = function increment(text) {
 exports.increment = increment;
 
 var truncate = function truncate(text, length) {
-  return (0, _truncHtml.default)(text, length, {
+  return (0, _truncHtml["default"])(text, length, {
     sanitizer: {
       allowedAttributes: {
         a: ['href', 'class', 'data-search']
@@ -91,7 +93,7 @@ function present(text) {
 
   if (text.substring(0, 3) !== '<p>' && !opts.noP) text = "<p>".concat(text, "</p>"); // make links and hashtags
 
-  if (!opts.noLinks) text = (0, _linkify.default)(text, opts.slug);
+  if (!opts.noLinks) text = (0, _linkify["default"])(text, opts.slug);
   if (opts.maxlength) text = truncate(text, opts.maxlength);
   return text;
 }
@@ -110,12 +112,12 @@ function textLength(html) {
   return html.replace(/<[^>]+>/g, '').length;
 }
 
-function humanDate(date, short) {
+function humanDate(date, _short) {
   var isString = typeof date === 'string';
   var isValidDate = !isNaN(Number(date)) && Number(date) !== 0;
-  var ret = date && (isString || isValidDate) ? _prettyDate.default.format(isString ? new Date(date) : date) : '';
+  var ret = date && (isString || isValidDate) ? _prettyDate["default"].format(isString ? new Date(date) : date) : '';
 
-  if (short) {
+  if (_short) {
     ret = ret.replace(' ago', '');
   } else {
     // this workaround prevents a "React attempted to use reuse markup" error

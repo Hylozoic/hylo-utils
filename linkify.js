@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = linkify;
+exports["default"] = linkify;
 exports.linkifyHashtags = linkifyHashtags;
 
 var _string = _interopRequireDefault(require("linkifyjs/string"));
@@ -14,13 +14,17 @@ var _cheerio = _interopRequireDefault(require("cheerio"));
 
 var _hashtag = require("./hashtag");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -72,19 +76,21 @@ function linkifyjsOptions(slug) {
 
 
 function linkify(text, slug) {
-  var $ = _cheerio.default.load(text); // caveat: this isn't intended to handle arbitrarily complex html
+  var $ = _cheerio["default"].load(text, {
+    _useHtmlParser2: true
+  }); // caveat: this isn't intended to handle arbitrarily complex html
 
 
   var run = function run(node) {
     return node.contents().map(function (i, el) {
-      if (el.type === 'text') return (0, _string.default)(el.data, linkifyjsOptions(slug));
+      if (el.type === 'text') return (0, _string["default"])(el.data, linkifyjsOptions(slug));
       if (el.name === 'br') return $.html(el);
       if (el.name === 'a') return cleanupLink($, el, slug);
       return recurse($, el, run);
     }).get().join('');
   };
 
-  return run($('body'));
+  return run($.root());
 }
 
 function recurse($, el, fn) {
@@ -126,7 +132,7 @@ function cleanupLink($, el, slug) {
 function linkifyHashtags(text, slug) {
   // this takes plain text and returns html.
   // It makes links out of hashtags but ignores urls
-  return (0, _string.default)(text, (0, _lodash.merge)(linkifyjsOptions(slug), {
+  return (0, _string["default"])(text, (0, _lodash.merge)(linkifyjsOptions(slug), {
     validate: function validate(value, type) {
       return type === 'hashtag';
     }
