@@ -8,11 +8,11 @@ import prettyDate from 'pretty-date'
 // Replace any div tag with p. Note that this drops all attributes from the tag.
 export function divToP (text) {
   if (!text || typeof text !== 'string') return ''
-  var $ = cheerio.load(text)
+  var $ = cheerio.load(text, { _useHtmlParser2: true })
   $('div').replaceWith(function () {
     return $('<p>' + $(this).html() + '</p>')
   })
-  return $('body').html()
+  return $.html()
 }
 
 export function sanitize (text, whitelist, attrWhitelist) {
