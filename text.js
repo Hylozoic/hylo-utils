@@ -30,9 +30,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 function divToP(text) {
   if (!text || typeof text !== 'string') return '';
 
-  var $ = _cheerio["default"].load(text, {
-    _useHtmlParser2: true
-  });
+  var $ = _cheerio["default"].load(text, null, false);
 
   $('div').replaceWith(function () {
     return $('<p>' + $(this).html() + '</p>');

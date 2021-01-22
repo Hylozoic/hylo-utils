@@ -76,9 +76,7 @@ function linkifyjsOptions(slug) {
 
 
 function linkify(text, slug) {
-  var $ = _cheerio["default"].load(text, {
-    _useHtmlParser2: true
-  }); // caveat: this isn't intended to handle arbitrarily complex html
+  var $ = _cheerio["default"].load(text, null, false); // caveat: this isn't intended to handle arbitrarily complex html
 
 
   var run = function run(node) {

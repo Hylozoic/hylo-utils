@@ -47,7 +47,7 @@ function linkifyjsOptions (slug) {
 // tags in it. it does so by generating a DOM from the text and linkifying only
 // text nodes that aren't inside A tags.
 export default function linkify (text, slug) {
-  var $ = cheerio.load(text, { _useHtmlParser2: true })
+  var $ = cheerio.load(text, null, false)
   // caveat: this isn't intended to handle arbitrarily complex html
   var run = node =>
     node.contents().map((i, el) => {
