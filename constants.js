@@ -14,8 +14,8 @@ var TOPIC_ENTITY_TYPE = '#mention';
 exports.TOPIC_ENTITY_TYPE = TOPIC_ENTITY_TYPE;
 var AnalyticsEvents = {
   COMMENT_CREATED: 'Comment Created',
-  COMMUNITY_CREATED: 'Community Created',
-  COMMUNITY_INVITATION_ACCEPTED: 'Community Invitation Accepted',
+  GROUP_CREATED: 'Group Created',
+  GROUP_INVITATION_ACCEPTED: 'Group Invitation Accepted',
   DIRECT_MESSAGE_SENT: 'Direct Message Sent',
   POST_CREATED: 'Post Created',
   POST_UPDATED: 'Post Updated',

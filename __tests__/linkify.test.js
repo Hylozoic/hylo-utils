@@ -32,7 +32,7 @@ it('wraps unlinked hashtags with underscores', () => {
   expect(linkify(source)).toEqual(expected)
 })
 
-it('adds community slug when wrapping unlinked hashtags', () => {
+it('adds group slug when wrapping unlinked hashtags', () => {
   let source = '<p>and #foo</p>'
   let slug = 'bar'
   let expected = '<p>and <a href="/c/bar/tag/foo" class="hashtag" data-search="#foo">#foo</a></p>'
@@ -45,7 +45,7 @@ it('adds attributes to linked hashtags', () => {
   expect(linkify(source)).toEqual(expected)
 })
 
-it('adds attributes to linked hashtags, including community slug if present', () => {
+it('adds attributes to linked hashtags, including group slug if present', () => {
   let source = '<p>and <a>#foo-bar</a></p>'
   let slug = 'yes'
   let expected = '<p>and <a href="/c/yes/tag/foo-bar" data-search="#foo-bar" class="hashtag">#foo-bar</a></p>'
