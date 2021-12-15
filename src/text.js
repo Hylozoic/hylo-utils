@@ -25,14 +25,14 @@ export function sanitize (text, whitelist, attrWhitelist) {
   return insane(strippedText, {
     allowedTags: whitelist || ['a', 'br', 'em', 'li', 'ol', 'p', 'strong', 'ul' ],
     allowedAttributes: attrWhitelist || {
-      'a': ['href', 'data-user-id', 'data-entity-type']
+      'a': ['href', 'data-user-id', 'data-entity-type', 'target']
     }
   })
 }
 
 export const markdown = text => {
   marked.setOptions({gfm: true, breaks: true})
-  return marked(text || '')
+  return sanitize(marked(text || ''))
 }
 
 // increment the number at the end of a string.

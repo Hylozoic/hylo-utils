@@ -46,7 +46,7 @@ function sanitize(text, whitelist, attrWhitelist) {
   return (0, _insane["default"])(strippedText, {
     allowedTags: whitelist || ['a', 'br', 'em', 'li', 'ol', 'p', 'strong', 'ul'],
     allowedAttributes: attrWhitelist || {
-      'a': ['href', 'data-user-id', 'data-entity-type']
+      'a': ['href', 'data-user-id', 'data-entity-type', 'target']
     }
   });
 }
@@ -57,7 +57,7 @@ var markdown = function markdown(text) {
     breaks: true
   });
 
-  return (0, _marked["default"])(text || '');
+  return sanitize((0, _marked["default"])(text || ''));
 }; // increment the number at the end of a string.
 // foo => foo2, foo2 => foo3, etc.
 

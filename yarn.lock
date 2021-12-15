@@ -2887,7 +2887,7 @@ insane@2.6.1:
     assignment "2.0.0"
     he "0.5.0"
 
-insane@^2.6.1:
+insane@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/insane/-/insane-2.6.2.tgz#c2ab68bb3e006ab451560d1b446917329c0a8120"
   integrity sha1-wqtouz4AarRRVg0bRGkXMpwKgSA=
@@ -3862,10 +3862,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marked@^0.3.5:
-  version "0.3.19"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.19.tgz#5d47f709c4c9fc3c216b6d46127280f40b39d790"
-  integrity sha512-ea2eGWOqNxPcXv8dyERdSr/6FmzvWwzjMxpfGB/sbMccXoct+xY+YukPD+QTUZwyvK7BZwcr4m21WBOW41pAkg==
+marked@^4:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-4.0.7.tgz#596a0826e7a8c6b4119eacd00b0220ddaee7fc71"
+  integrity sha512-mQrRvV2vRk7DHZsWsYJfAjmBo+lSYPhTJPThaaGpkEfmC+4oefeug2txZniQTieDS0CFpokfVhd7JuS5GtnHhA==
 
 merge-stream@^2.0.0:
   version "2.0.0"
