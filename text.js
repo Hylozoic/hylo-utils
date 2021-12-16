@@ -14,7 +14,7 @@ exports.truncate = exports.increment = exports.markdown = void 0;
 
 var _cheerio = _interopRequireDefault(require("cheerio"));
 
-var _marked = _interopRequireDefault(require("marked"));
+var _marked = require("marked");
 
 var _insane = _interopRequireDefault(require("insane"));
 
@@ -52,12 +52,12 @@ function sanitize(text, whitelist, attrWhitelist) {
 }
 
 var markdown = function markdown(text) {
-  _marked["default"].setOptions({
+  _marked.marked.setOptions({
     gfm: true,
     breaks: true
   });
 
-  return sanitize((0, _marked["default"])(text || ''));
+  return sanitize(_marked.marked.parse(text || ''));
 }; // increment the number at the end of a string.
 // foo => foo2, foo2 => foo3, etc.
 

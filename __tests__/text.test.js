@@ -83,3 +83,13 @@ describe('sanitize', () => {
     expect(actual).toBe(expected)
   })
 })
+
+describe('markdown', () => {
+  it('converts to markdown', () => {
+    expect(text.markdown('*strong* **italic**')).toBe("<p><em>strong</em> <strong>italic</strong></p>\n")
+  })
+
+  it('sanitizes also', () => {
+    expect(text.markdown('*strong* **italic** <i>aa</i>')).toBe("<p><em>strong</em> <strong>italic</strong> </p>\n")
+  })
+})

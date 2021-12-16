@@ -1,5 +1,5 @@
 import cheerio from 'cheerio'
-import marked from 'marked'
+import { marked } from 'marked'
 import insane from 'insane'
 import truncHtml from 'trunc-html'
 import linkify from './linkify'
@@ -31,8 +31,8 @@ export function sanitize (text, whitelist, attrWhitelist) {
 }
 
 export const markdown = text => {
-  marked.setOptions({gfm: true, breaks: true})
-  return sanitize(marked(text || ''))
+  marked.setOptions({ gfm: true, breaks: true })
+  return sanitize(marked.parse(text || ''))
 }
 
 // increment the number at the end of a string.
