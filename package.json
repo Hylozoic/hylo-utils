@@ -7,6 +7,7 @@
     "url": "git+https://github.com/Hylozoic/hylo-utils.git"
   },
   "license": "AGPL-1.0",
+  "type": "module",
   "main": "dist/index.js",
   "scripts": {
     "start": "yarn babel src --watch --out-dir dist",
@@ -35,6 +36,21 @@
     "babel-jest": "^27.4.6",
     "jest": "^27.4.7",
     "standard": "^16.0.4"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        { "targets": { "node": "current" } }
+      ]
+    ],
+    "env": {
+      "development": {
+        "ignore": [
+          "**/*.test.js"
+        ]    
+      }
+    }
   },
   "standard": {
     "parser": "babel-eslint",
