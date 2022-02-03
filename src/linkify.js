@@ -1,12 +1,8 @@
-// require('linkifyjs')
-// require('linkify-plugin-hashtag')
-
 import { isEmpty, toPairs } from 'lodash'
 import cheerio from 'cheerio'
 import linkifyString from 'linkify-string'
+import 'linkify-plugin-hashtag'
 import { HASHTAG_FULL_REGEX } from './constants'
-
-
 
 const MAX_LINK_LENGTH = 48
 
