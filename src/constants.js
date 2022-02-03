@@ -1,4 +1,3 @@
-
 // These are used when creating posts and comments with mentions and topic tags
 // in them. The reason TOPIC_ENTITY_TYPE is '#mention' as opposed to something
 // more human-understandable has something to do with the Draft.js plugin used
@@ -18,3 +17,5 @@ export const AnalyticsEvents  = {
   BLOCK_USER: 'User Blocked',
   UNBLOCK_USER: 'User Un-Blocked'
 }
+
+export const HASHTAG_FULL_REGEX = /^#([A-Za-z][\w_-]+)$/

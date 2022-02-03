@@ -1,12 +1,10 @@
-import linkifyString from 'linkifyjs/string'
-import { isEmpty, toPairs, merge } from 'lodash'
+import { isEmpty, toPairs } from 'lodash'
 import cheerio from 'cheerio'
-import { hashtagFullRegex } from './hashtag'
+import linkifyString from 'linkify-string'
+import 'linkify-plugin-hashtag'
+import { HASHTAG_FULL_REGEX } from './constants'
 
-// this loads the hashtag-parsing plugin
-require('linkifyjs/plugins/hashtag')(require('linkifyjs'))
-
-const maxLinkLength = 48
+const MAX_LINK_LENGTH = 48
 
 function tagUrl (tagName, slug) {
   if (slug) {
@@ -26,39 +24,30 @@ function mentionUrl (memberId, slug) {
 
 function linkifyjsOptions (slug) {
   return {
-    format: (value, type) =>
-      type === 'url' && value.length > maxLinkLength
-        ? value.slice(0, maxLinkLength) + '…' : value,
-
-    formatHref: function (value, type) {
-      if (type === 'hashtag') {
-        return tagUrl(value.substring(1), slug)
-      }
-      return value
+    format: {
+      url: value =>
+        value.length > MAX_LINK_LENGTH
+          ? `${value.slice(0, MAX_LINK_LENGTH)}…`
+          : value
     },
-    linkAttributes: function (value, type) {
-      if (type === 'hashtag') return {'data-search': value}
+    formatHref: {
+      hashtag: href => tagUrl(href.substring(1), slug)
     },
-    linkClass: (href, type) => type === 'hashtag' ? 'hashtag' : 'linkified'
+    attributes: (href, type) => (
+      type === 'hashtag'
+        ? { 'data-search': href }
+        : ''
+    ),
+    className: (href, type) => (
+      type === 'hashtag'
+        ? 'hashtag'
+        : 'linkified'
+    ),
+    target: {
+      url: '_blank'
+    }
   }
 }
-
-// unlike the linkifyjs module, this handles text that may already have html
-// tags in it. it does so by generating a DOM from the text and linkifying only
-// text nodes that aren't inside A tags.
-export default function linkify (text, slug) {
-  var $ = cheerio.load(text, null, false)
-  // caveat: this isn't intended to handle arbitrarily complex html
-  var run = node =>
-    node.contents().map((i, el) => {
-      if (el.type === 'text') return linkifyString(el.data, linkifyjsOptions(slug))
-      if (el.name === 'br') return $.html(el)
-      if (el.name === 'a') return cleanupLink($, el, slug)
-      return recurse($, el, run)
-    }).get().join('')
-
-    return run($.root())
-  }
 
 function recurse ($, el, fn) {
   const attrs = !isEmpty(el.attribs)
@@ -76,24 +65,34 @@ function cleanupLink ($, el, slug) {
     $el.attr('href', mentionUrl(memberId, slug))
     $el.attr('class', 'mention')
   } else {
-    const match = text.match(hashtagFullRegex)
+    const match = text.match(HASHTAG_FULL_REGEX)
     if (match) {
       $el.attr('href', tagUrl(match[1], slug))
       $el.attr('data-search', match[0])
       $el.attr('class', 'hashtag')
     }
   }
-  if (text.length >= maxLinkLength) {
-    $el.text(text.slice(0, maxLinkLength) + '…')
+  if (text.length >= MAX_LINK_LENGTH) {
+    $el.text(text.slice(0, MAX_LINK_LENGTH) + '…')
   }
 
   return $.html(el)
 }
 
-export function linkifyHashtags (text, slug) {
-  // this takes plain text and returns html.
-  // It makes links out of hashtags but ignores urls
-  return linkifyString(text, merge(linkifyjsOptions(slug), {
-    validate: (value, type) => type === 'hashtag'
-  }))
+// unlike the linkifyjs module, this handles text that may already have html
+// tags in it. it does so by generating a DOM from the text and linkifying only
+// text nodes that aren't inside A tags.
+export function linkifyHylo (text, slug) {
+  // return linkifyHTML(text, linkifyjsOptions(slug))
+  var $ = cheerio.load(text, null, false)
+  // caveat: this isn't intended to handle arbitrarily complex html
+  var run = node =>
+    node.contents().map((i, el) => {
+      if (el.type === 'text') return linkifyString(el.data, linkifyjsOptions(slug))
+      if (el.name === 'br') return $.html(el)
+      if (el.name === 'a') return cleanupLink($, el, slug)
+      return recurse($, el, run)
+    }).get().join('')
+
+  return run($.root())
 }

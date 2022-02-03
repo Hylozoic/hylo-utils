@@ -2,10 +2,11 @@ import cheerio from 'cheerio'
 import { marked } from 'marked'
 import insane from 'insane'
 import truncHtml from 'trunc-html'
-import linkify from './linkify'
+import { linkifyHylo } from './linkify'
 import prettyDate from 'pretty-date'
 
 // Replace any div tag with p. Note that this drops all attributes from the tag.
+// Current used only in mobile
 export function divToP (text) {
   if (!text || typeof text !== 'string') return ''
   var $ = cheerio.load(text, null, false)
@@ -58,7 +59,7 @@ export function present (text, opts = {}) {
   if (text.substring(0, 3) !== '<p>' && !opts.noP) text = `<p>${text}</p>`
 
   // make links and hashtags
-  if (!opts.noLinks) text = linkify(text, opts.slug)
+  if (!opts.noLinks) text = linkifyHylo(text, opts.slug)
 
   if (opts.maxlength) text = truncate(text, opts.maxlength)
   return text
@@ -104,6 +105,7 @@ export function humanDate (date, short) {
   return ret
 }
 
+// Currently only used on Mobile
 // Assumes current user has already been filtered from `names`
 export function threadNames (names) {
   if (names.length < 3) return names.join(' & ')
