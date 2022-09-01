@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.2.5]
 
 ### Fixed
-- Sanitize text when suing marked for markdown
+- Sanitize text when using marked for markdown
 
 ### Changed
 - Update marked library to latest release

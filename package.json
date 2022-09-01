@@ -20,9 +20,9 @@
     "cheerio": "^1.0.0-rc.10",
     "events": "^3.3.0",
     "insane": "^2.6.2",
-    "linkifyjs": "^3.0.5",
-    "linkify-plugin-hashtag":"^3.0.4",
+    "linkify-plugin-hashtag": "^3.0.4",
     "linkify-string": "^3.0.4",
+    "linkifyjs": "^3.0.5",
     "marked": "^4.0.12",
     "pretty-date": "^0.2.0",
     "stream": "^0.0.2",
@@ -30,8 +30,8 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.0",
     "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "babel-jest": "^27.4.6",
     "jest": "^27.4.7",
@@ -40,15 +40,14 @@
   "babel": {
     "presets": [
       [
-        "@babel/preset-env",
-        { "targets": { "node": "current" } }
+        "@babel/preset-env"
       ]
     ],
     "env": {
       "development": {
         "ignore": [
           "**/*.test.js"
-        ]    
+        ]
       }
     }
   },

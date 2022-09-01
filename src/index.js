@@ -1,4 +1,9 @@
-export * as constants from './linkify'
-export * as linkify from './linkify'
-export * as text from './text'
-export * as validators from './validators'
+import * as constants from './constants'
+import * as text from './text'
+import * as validators from './validators'
+
+export default { 
+  constants,
+  text,
+  validators
+}

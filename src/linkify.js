@@ -82,7 +82,7 @@ function cleanupLink ($, el, slug) {
 // unlike the linkifyjs module, this handles text that may already have html
 // tags in it. it does so by generating a DOM from the text and linkifying only
 // text nodes that aren't inside A tags.
-export function linkifyHylo (text, slug) {
+export default function linkify (text, slug) {
   // return linkifyHTML(text, linkifyjsOptions(slug))
   var $ = cheerio.load(text, null, false)
   // caveat: this isn't intended to handle arbitrarily complex html

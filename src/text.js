@@ -2,7 +2,7 @@ import cheerio from 'cheerio'
 import { marked } from 'marked'
 import insane from 'insane'
 import truncHtml from 'trunc-html'
-import { linkifyHylo } from './linkify'
+import linkify from './linkify'
 import prettyDate from 'pretty-date'
 
 // Replace any div tag with p. Note that this drops all attributes from the tag.
@@ -32,8 +32,9 @@ export function sanitize (text, whitelist, attrWhitelist) {
 }
 
 export const markdown = text => {
-  marked.setOptions({ gfm: true, breaks: true })
-  return sanitize(marked.parse(text || ''))
+  return sanitize(
+    marked.parse(text || '', { gfm: true, breaks: true })
+  )
 }
 
 // increment the number at the end of a string.
@@ -59,7 +60,7 @@ export function present (text, opts = {}) {
   if (text.substring(0, 3) !== '<p>' && !opts.noP) text = `<p>${text}</p>`
 
   // make links and hashtags
-  if (!opts.noLinks) text = linkifyHylo(text, opts.slug)
+  if (!opts.noLinks) text = linkify(text, opts.slug)
 
   if (opts.maxlength) text = truncate(text, opts.maxlength)
   return text
